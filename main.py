@@ -19,11 +19,9 @@ passwd = os.environ.get('PASSWORD')
 
 sign = Login(email, passwd)
 cookies = sign.login()
-
-sign.saveCookies()
-
 chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
 
+sign.saveCookies()
 allow_dm = True
 active_channels = set()
 
@@ -45,12 +43,15 @@ def split_response(response, max_length=1999):
         chunks.append(current_chunk.strip())
 
     return chunks
-
+id = chatbot.new_conversation()
 async def generate_response(user_prompt):
-  response = await asyncio.to_thread(chatbot.chat, user_prompt)
-  if not response:
-    response = "Model is overloaded, please try again later."
-  return response
+    chatbot.change_conversation(id)
+    response = await asyncio.to_thread(chatbot.chat, user_prompt)
+    try:
+      return response
+    except:
+      return "Model is overloaded, please try again later."
+
 
 @bot.event
 async def on_ready():
