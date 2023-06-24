@@ -1,0 +1,4 @@
+hugchat
+discord
+python-dotenv
+Flask
