@@ -46,7 +46,7 @@ def split_response(response, max_length=1999):
 id = chatbot.new_conversation()
 async def generate_response(user_prompt):
     chatbot.change_conversation(id)
-    response = await asyncio.to_thread(chatbot.chat, user_prompt)
+    response = await asyncio.to_thread(chatbot.chat, text=user_prompt, is_retry=True)
     try:
       return response
     except:
