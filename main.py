@@ -48,6 +48,8 @@ def split_response(response, max_length=1999):
 
 async def generate_response(user_prompt):
   response = await asyncio.to_thread(chatbot.chat, user_prompt)
+  if not response:
+    response = "Model is overloaded, please try again later."
   return response
 
 @bot.event
