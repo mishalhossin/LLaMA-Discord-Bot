@@ -21,7 +21,7 @@ sign = Login(email, passwd)
 cookies = sign.login()
 chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
 
-sign.saveCookies()
+sign.saveCookiesToDir("cookies")
 allow_dm = True
 active_channels = set()
 
